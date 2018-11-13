@@ -5,10 +5,10 @@
 # ***********************************************
 
 CC = g++
-CFLAGS +=
+CFLAGS += -std=c++14
 
 LD = g++
-LDFLAGS +=
+LDFLAGS += -std=c++14 -pthread
 
 NAME = $(wildcard *.cpp)
 NAME-OBJS = $(patsubst %.cpp, %.o, $(NAME))
