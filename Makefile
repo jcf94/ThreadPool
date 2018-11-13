@@ -10,10 +10,10 @@ CFLAGS +=
 LD = g++
 LDFLAGS +=
 
-NAME = $(wildcard *.cpp)
-SRCS = $(wildcard *.cpp)
-OBJS = $(patsubst %.cpp, %.o, $(SRCS))
-TARGET = $(patsubst %.cpp, %, $(NAME))
+NAME=$(wildcard *.cpp)
+TARGET=$(patsubst %.cpp, %, $(NAME))
+SRCS=$(wildcard src/*.cpp)
+OBJS=$(patsubst %.cpp, %.o, $(SRCS))
 
 CLEAN-O = rm -f $(OBJS)
 
@@ -25,13 +25,13 @@ debug: CFLAGS += -g3
 debug: LDFLAGS += -g3
 debug: all
 
-all: main
+all: $(TARGET)
 	$(CLEAN-O)
 	@echo "=------------------------------="
 	@echo "|     Target Make Success      |"
 	@echo "=------------------------------="
 
-$(TARGET): $(OBJS)
+$(TARGET): $(OBJS) $(NAME)
 	$(LD) -o $@ $^ $(LDFLAGS)
 
 %.o: %.cpp
@@ -47,6 +47,6 @@ clean:
 
 show:
 	@echo NAME: $(NAME)
+	@echo TARGET: $(TARGET)
 	@echo SRCS: $(SRCS)
 	@echo OBJS: $(OBJS)
-	@echo TARGET: $(TARGET)
