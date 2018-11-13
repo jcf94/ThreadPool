@@ -13,6 +13,7 @@ PROG	: THREADPOOL_H
 #include <vector>
 #include <queue>
 #include <future>
+#include <functional>
 
 #define RETURN_TYPE typename std::result_of<Function(Args...)>::type
 
