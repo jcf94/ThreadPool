@@ -27,6 +27,7 @@ public:
     std::future<RETURN_TYPE> add_task(Function&& f, Args&&... args);
 
     void wait();
+    int tasks_in_queue();
 
 private:
 

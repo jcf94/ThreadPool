@@ -32,7 +32,7 @@ ThreadPool::ThreadPool(int num_threads)
 ThreadPool::~ThreadPool()
 {
     {
-        std::unique_lock<std::mutex> lock(tasks_mutex_);
+        std::lock_guard<std::mutex> lock(tasks_mutex_);
         stop_ = true;
     }
     cv_.notify_all();
@@ -41,5 +41,11 @@ ThreadPool::~ThreadPool()
 
 void ThreadPool::wait()
 {
-    while (!tasks_.empty()) {}
+    while (tasks_in_queue()) {}
+}
+
+int ThreadPool::tasks_in_queue()
+{
+    std::lock_guard<std::mutex> lock(tasks_mutex_);
+    return tasks_.size();
 }
